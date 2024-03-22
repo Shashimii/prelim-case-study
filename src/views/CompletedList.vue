@@ -9,7 +9,7 @@
           <span>{{ task.text }}</span>
         </div>
         <div class="task-actions">
-          <button @click="deleteTask(index)">Delete</button>
+          <button @click="deleteTask(index)" class="btn-delete">Delete</button>
         </div>
       </li>
     </ul>
@@ -50,3 +50,38 @@ export default {
 }
 </script>
 
+<style scoped>
+  .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+  }
+
+  .task-details {
+      display: flex;
+      align-items: center;
+  }
+
+  .task-details input[type="checkbox"] {
+      margin-right: 10px;
+  }
+
+  .task-details span {
+      color: #555;
+  }
+
+  .btn-delete {
+      background-color: #f65c39;
+      color: white;
+  }
+
+  .btn-delete:hover {
+      background-color: #cd4229;
+  }
+
+  p {
+      color: #fff;
+      margin-top: 20px;
+  }
+</style>

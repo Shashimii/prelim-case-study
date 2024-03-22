@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2>Task Manager</h2>
     <input type="text" v-model="task" placeholder="Enter task">
     <button @click="addTask">Add Task</button>
     <ul> <!-- List to display tasks -->
@@ -11,8 +12,8 @@
           <span v-else @click="editTask(index)">{{ task.text }}</span>
         </div>
         <div class="task-actions">
-          <button @click="editTask(index)">Edit</button>
-          <button @click="deleteTask(index)">Delete</button>
+          <button @click="editTask(index)" class="btn-edit">Edit</button>
+          <button @click="deleteTask(index)" class="btn-delete">Delete</button>
         </div>
       </li>
     </ul>
@@ -85,3 +86,56 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+  }
+
+  input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-right: 10px;
+      width: 50%;
+  }
+
+  input[type="checkbox"] {
+      margin-right: 10px;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .btn-edit {
+    background-color: #199471;
+    color: white;
+  }
+
+  .btn-delete {
+      background-color: #f65c39;
+      color: white;
+  }
+
+  button:hover {
+      background-color: #0368d4;
+  }
+
+  .btn-edit:hover {
+    background-color: #117159;
+  }
+
+  .btn-delete:hover {
+    background-color: #cd4229;
+  }
+
+  p {
+      color: #fff;
+      margin-top: 20px;
+  }
+</style>

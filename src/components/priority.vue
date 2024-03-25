@@ -1,32 +1,32 @@
 <template>
   <div class="container">
-    <h2>Task Manager</h2>
-    <input type="text" v-model="task" placeholder="Enter task">
-    <button @click="addTask">Add Task</button>
+    <h2>Prioritized Tasks</h2>
     <ul> <!-- List to display tasks -->
-      <li v-for="(task, index) in tasks" :key="index" class="task-list">
+      <li v-for="(taskPriority, index) in taskPriority" :key="index" class="task-list">
         <div class="task-details">
-          <input type="checkbox" v-model="task.completed" placeholder="Enter task" @change="taskCompleted(index)">
+          <input type="checkbox" v-model="taskPriority.completed" placeholder="Enter task" @change="taskCompleted(index)">
           <!-- If the task editing is true, show the input box else show the task -->
-          <input v-if="task.editing" type="text" v-model="task.text" @keyup.enter="checkTask(index)">
-          <span v-else @click="editTask(index)">{{ task.text }}</span>
+          <input v-if="taskPriority.editing" type="text" v-model="taskPriority.text" @keyup.enter="checkTask(index)">
+          <span v-else @click="editTask(index)">{{ taskPriority.text }}</span>
         </div>
         <div class="task-actions">
-          <button @click="prioTask(index)" class="btn-prio">Add Priority</button>
+          <button @click="removePrioTask(index)" class="btn-remove-prio">Remove Priority</button>
           <button @click="editTask(index)" class="btn-edit">Edit</button>
           <button @click="deleteTask(index)" class="btn-delete">Delete</button>
         </div>
       </li>
     </ul>
-    <p>Tasks to do: {{ totalTask }}</p>
+    <p>Priority Tasks to do: {{ totalTask }}</p>
   </div>
 </template>
+
 
 <script>
 import {tasks, tasksDone, taskPriority} from '@/main.js'
 
 export default {
-  name: 'TodoList',
+  name: 'PriorityList',
+
   data() {
     return {
       error:'',
@@ -37,61 +37,48 @@ export default {
     }
   },
   methods: {
-    // Add task to the tasks list
-    addTask() {
-      if (this.task == '') {
-        window.alert('Task cannot be empty. Please enter a task.');
-        return;
-      } else { 
-        this.error = '';
-        this.tasks.push({
-          text: this.task,
-          completed: false,
-        });
-        this.task = '';
-      }
+    // Remove task from Priority
+    removePrioTask(index) {
+        this.tasks.push(this.taskPriority[index]);
+        this.taskPriority.splice(index, 1);
     },
-    // Priority task in the taks list
-    prioTask(index) {
-      this.taskPriority.push(this.tasks[index]);
-      this.tasks.splice(index, 1);
-    }, 
     // Edit task in the tasks list
     editTask(index) {
-      if(this.tasks[index].text == '') {
+      if(this.taskPriority[index].text == '') {
         window.alert('Task cannot be empty. Please enter a task.');
         return;
       } else {
-        this.tasks[index].editing = !this.tasks[index].editing
+        this.taskPriority[index].editing = !this.taskPriority[index].editing
       }
       
     },
     // Delete task from the tasks list
     deleteTask(index) {
-      this.tasks.splice(index, 1);
+      this.taskPriority.splice(index, 1);
     },
     // Check if the task is empty during editing
     checkTask(index) {
-      if(this.tasks[index].text == '') {
+      if(this.taskPriority[index].text == '') {
         window.alert('Task cannot be empty. Please enter a task.');
         return;
       }
     },
     // Moves the task from tasks list to tasks done list
     taskCompleted(index) {
-      if(this.tasks[index].completed) {
-        this.tasksDone.push(this.tasks[index]);
-        this.tasks.splice(index, 1);
+      if(this.taskPriority[index].completed) {
+        this.tasksDone.push(this.taskPriority[index]);
+        this.taskPriority.splice(index, 1);
       }
     }
   },
   // Displays the total number of tasks
   computed: {
     totalTask() {
-      return this.tasks.length
+      return this.taskPriority.length
     },
   },
 }
+
 </script>
 
 <style scoped>
@@ -114,14 +101,9 @@ export default {
       margin-right: 10px;
   }
 
-  button {
-    background-color: #007bff;
+  .btn-remove-prio {
+    background-color: #aaaaaa;
     color: #fff;
-  }
-
-  .btn-prio {
-    background-color: #ffc107;
-    color: white;
   }
 
   .btn-edit {
@@ -134,12 +116,8 @@ export default {
       color: white;
   }
 
-  button:hover {
-      background-color: #0368d4;
-  }
-
-  .btn-prio:hover {
-    background-color: #bf9000;
+  .btn-remove-prio:hover {
+      background-color: #6c6f7c;
   }
 
   .btn-edit:hover {

@@ -8,6 +8,11 @@ const routes = [
     component: TodoList
   },
   {
+    path: '/priorityList',
+    name: 'priorityList',
+    component: () => import('../views/PriorityList.vue')
+  },
+  {
     path: '/completedList',
     name: 'completedList',
     component: () => import('../views/CompletedList.vue')

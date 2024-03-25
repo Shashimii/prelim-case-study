@@ -6,6 +6,7 @@ import router from './router'
 // to be used in other components
 const tasks = [];
 const tasksDone = [];
+const taskPriority = [];
 
-export {tasks, tasksDone};
+export {tasks, tasksDone, taskPriority};
 createApp(App).use(router).mount('#app')

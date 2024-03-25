@@ -1,6 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Todos</router-link> |
+    <router-link to="/priorityList">Priority Tasks</router-link> |
     <router-link to="/completedList">Completed</router-link>
   </nav>
   <router-view/>
